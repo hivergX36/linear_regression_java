@@ -21,9 +21,7 @@ public class Regression {
     float tXX_inv[][];
     float tXY[];
 
-
-    public Regression()
-    {
+    public Regression() {
         this.nbrows = 0;
         this.nbcols = 0;
         this.covariance = 0;
@@ -32,7 +30,6 @@ public class Regression {
         this.y_mean = 0;
 
         System.out.println("Regression object created");
-
 
     }
 
@@ -77,82 +74,64 @@ public class Regression {
         }
     }
 
-    void displayMatrix()
-    {
+    void displayMatrix() {
         System.out.println("Labels:");
-        for (int i = 0; i < nbrows; i++)
-        {
+        for (int i = 0; i < nbrows; i++) {
             System.out.println(label[i]);
         }
         System.out.println();
 
         System.out.println("X:");
-        for (int i = 0; i < nbrows; i++)
-        {
-            for (int j = 0; j < nbcols; j++)
-            {
+        for (int i = 0; i < nbrows; i++) {
+            for (int j = 0; j < nbcols; j++) {
                 System.out.print(X[i][j] + " ");
             }
             System.out.println();
         }
 
         System.out.println("Transposed X:");
-        for (int i = 0; i < nbcols; i++)
-        {
-            for (int j = 0; j < nbrows; j++)
-            {
+        for (int i = 0; i < nbcols; i++) {
+            for (int j = 0; j < nbrows; j++) {
                 System.out.print(tX[i][j] + " ");
             }
             System.out.println();
         }
 
         System.out.println("tXX:");
-        for (int i = 0; i < nbcols; i++)
-        {
-            for (int j = 0; j < nbcols; j++)
-            {
+        for (int i = 0; i < nbcols; i++) {
+            for (int j = 0; j < nbcols; j++) {
                 System.out.print(tXX[i][j] + " ");
             }
             System.out.println();
         }
         System.out.println("tXX_inv:");
-        for (int i = 0; i < nbcols; i++)
-        {
-            for (int j = 0; j < nbcols; j++)
-            {
+        for (int i = 0; i < nbcols; i++) {
+            for (int j = 0; j < nbcols; j++) {
                 System.out.print(tXX_inv[i][j] + " ");
             }
             System.out.println();
         }
 
         System.out.println("tXY:");
-        for (int i = 0; i < nbcols; i++)
-        {
+        for (int i = 0; i < nbcols; i++) {
             System.out.print(tXY[i] + " ");
         }
         System.out.println();
     }
 
-    void transposedMatrix()
-    {
+    void transposedMatrix() {
         // Implementation for calculating the regression coefficients
-        for (int i = 0; i < nbrows; i++)
-        {
-            for (int j = 0; j < nbcols; j++)
-            {
+        for (int i = 0; i < nbrows; i++) {
+            for (int j = 0; j < nbcols; j++) {
                 tX[j][i] = X[i][j];
             }
         }
     }
 
-    void calculate_tXX()
-    {
-        for (int i = 0; i < nbcols; i++)
-        {
-            for (int j = 0; j < nbcols; j++)
-            {
-                for (int k = 0; k < nbrows; k++)
-                {
+    void calculate_tXX() {
+        for (int i = 0; i < nbcols; i++) {
+            for (int j = 0; j < nbcols; j++) {
+                for (int k = 0; k < nbrows; k++) {
                     tXX[i][j] += tX[j][k] * X[k][i];
                 }
             }
@@ -235,65 +214,51 @@ public class Regression {
         }
     }
 
-    void calculate_tXY()
-    {
-        for (int i = 0; i < nbcols; i++)
-        {
-            for (int j = 0; j < nbrows; j++)
-            {
+    void calculate_tXY() {
+        for (int i = 0; i < nbcols; i++) {
+            for (int j = 0; j < nbrows; j++) {
                 tXY[i] += tX[i][j] * label[j];
             }
         }
     }
 
-    void calculate_coefficients()
-    {
+    void calculate_coefficients() {
         // Implementation for calculating the regression coefficients
 
-        for (int i = 0; i < nbcols; i++)
-        {
-            for (int j = 0; j < nbcols; j++)
-            {
+        for (int i = 0; i < nbcols; i++) {
+            for (int j = 0; j < nbcols; j++) {
                 coefficients[i] += tXX_inv[i][j] * tXY[j];
             }
         }
         System.out.println("Coefficients:");
-        for (int i = 0; i < nbcols; i++)
-        {
+        for (int i = 0; i < nbcols; i++) {
             System.out.println(coefficients[i]);
         }
     }
 
-    void calculate_predictions()
-    {
+    void calculate_predictions() {
         // Implementation for calculating the regression coefficients
-        for (int i = 0; i < nbrows; i++)
-        {
+        for (int i = 0; i < nbrows; i++) {
             predictions[i] = 0;
-            for (int j = 0; j < nbcols; j++)
-            {
+            for (int j = 0; j < nbcols; j++) {
                 predictions[i] += X[i][j] * coefficients[j];
             }
         }
     }
 
-    void displayCoefficientsAndPredictions()
-    {
+    void displayCoefficientsAndPredictions() {
         System.out.println("Coefficients:");
-        for (int i = 0; i < nbcols; i++)
-        {
+        for (int i = 0; i < nbcols; i++) {
             System.out.println(coefficients[i]);
         }
 
         System.out.println("Predictions:");
-        for (int i = 0; i < nbrows; i++)
-        {
+        for (int i = 0; i < nbrows; i++) {
             System.out.println(predictions[i]);
         }
     }
 
-    void calculate_regression()
-    {
+    void calculate_regression() {
         // Implementation for calculating the regression coefficients
         calculate_tXX();
         calculate_tXX_inv();
@@ -303,5 +268,5 @@ public class Regression {
         displayCoefficientsAndPredictions();
     }
 };
-    
+
 }
